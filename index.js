@@ -1,50 +1,12 @@
-import puppeteer from 'puppeteer';
 
-const wait =(time) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {resolve()}, time*1000)
-    })
-}
+import getRealTimeRate from './getRealTimeRate.js'
 
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+const btcTokens = ['ETH', '1INCH', 'AAVE', 'ACH', 'ADA', 'AGLD', 'ALCX', 'ATOM', 'ALGO', 'ALICE', 'ALPACA', 'AMP', 'ANKR', 'AERGO', 'AGIX', 'ANT', 'AVAX', 'AMB', 'BAL', 'BAT', 'CHZ', 'COMP', 'CRV', 'DASH', 'DOGE', 'DOT', 'ENJ', 'EOS', 'FIL', 'GRT', 'KNC', 'LINK', 'LRC', 'LTC', 'MANA', 'MKR', 'OKB', 'OMG', 'REN', 'TRX', 'UNI', 'XRP', 'YFI', 'ZRX',]
 
+const ethTokens = ['AAVE', 'CRV', 'DASH', 'DOGE', 'DOT', 'EOS', 'FIL', 'LINK', 'LTC', 'MANA', 'MKR', 'OKB', 'SNX', 'SUSHI', 'TRX', 'UNI', 'XRP', 'YFI', 'ZRX']
 
-
-
-  await page.goto('https://www.superex.com/trade/ACH_BTC');
-
-  // Set screen size
-  await page.setViewport({width: 1080, height: 1024});
-  
-
-
-  console.log('#### wait for 5 seconds to load. start')
-
-  await wait(5)
-
-  console.log('#### wait for 5 seconds to load. end')
-
-  // Wait and click on first result
-  const searchResultSelector = '.block.marB4.bold.price.green';
-
-//   const searchResultSelector = '.convert-price';
-   let aaa =   await page.waitForSelector(searchResultSelector);
-
-
-
-  let fullTitle = await aaa?.evaluate(el => el.textContent);
-
-
-
-  fullTitle = fullTitle.trim()
-
-
-
-  let rate = parseFloat(fullTitle)
-  // Print the full title
-  console.log('The title of this blog post is "%s".', rate);
-
-  await browser.close();
-})();
+  (async function () {
+    const url = 'https://www.superex.com/trade/1INCH_USDT'
+    let rate = await getRealTimeRate({ url })
+    console.log('The title of this blog post is "%s".', rate);
+  })()
