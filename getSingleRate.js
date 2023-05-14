@@ -7,7 +7,7 @@ const wait = (time) => {
     })
 }
 
-const getRealTimeRate = async ({ url }) => {
+const getSingleRate = async ({ url }) => {
     // step 1. load the page
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -26,6 +26,7 @@ const getRealTimeRate = async ({ url }) => {
     await browser.close();
     //
     // step 4. text -> number
+    fullTitle = fullTitle.replace(',', '')
     fullTitle = fullTitle.trim()
     let rate = parseFloat(fullTitle)
     //
@@ -34,4 +35,4 @@ const getRealTimeRate = async ({ url }) => {
     //
 }
 
-export default getRealTimeRate 
+export default getSingleRate 
